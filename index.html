@@ -5,11 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        span {
+            color: blue;
+        }
+
+        div#map {
+            height: 500px;
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+    <title>Gooele Map Proxy</title>
 </head>
 
 <body>
-    <h1>a Gooele Map tiles proxy</h1>
+    <h1>Gooele Map Proxy</h1>
+    <h1>If you see maps blow, it's works</h1>
+    <h2>The tile url is : <span>https://maps-ten.vercel.app/api/map?x={x}&y={y}&z={z}</span></h2>
+    <div id="map"></div>
+    <script>
+        var googleProxy = L.tileLayer("https://maps-ten.vercel.app/api/map?x={x}&y={y}&z={z}", {
+            attribution: 'Map data &copy; <a href="https://developers.google.com/maps">Google Maps</a>',
+            maxZoom: 20,
+        });
+        var map = L.map("map", {
+            center: [35, 109],
+            zoom: 3,
+            layers: [googleProxy],
+        });
+        //L.control.layers(baseMaps).addTo(map);
+        L.control.scale({
+            imperial: false
+        }).addTo(map);
+    </script>
 </body>
 
 </html>
